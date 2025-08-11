@@ -1,7 +1,6 @@
 #ifndef VOLTERRA_SIMULATION_HPP
 #define VOLTERRA_SIMULATION_HPP
 
-#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -37,27 +36,10 @@ class Simulation
  public:
   // Costruttore
   Simulation(double A, double B, double C, double D, double x0, double y0,
-             double dt)
-      : A_{A}
-      , B_{B}
-      , C_{C}
-      , D_{D}
-      , dt_{dt}
-      , x_eq_{D / C}
-      , y_eq_{A / B}
-      , x_rel_{x0 * C / D}
-      , y_rel_{y0 * B / A}
-      , results_{}
-  {
-    results_.push_back({x0, y0, compute_H(x0, y0)});
-  }
+             double dt);
 
   // Calcola l'integrale primo H(x, y)
-  double compute_H(double x, double y) const
-  {
-    double H = -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y);
-    return H;
-  };
+  double compute_H(double x, double y) const;
 
   // Esegue un passo temporale Δt
   void evolve() {};

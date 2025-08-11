@@ -1,9 +1,8 @@
-#include"simulation.cpp"
+#include "simulation.cpp"
 
 #include <cstdlib>
 #include <exception>
 #include <iostream>
-
 
 #include "simulation.hpp"
 
@@ -18,4 +17,3 @@ int main()
     return EXIT_FAILURE;
   }
 }
-
