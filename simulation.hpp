@@ -1,9 +1,9 @@
 #ifndef VOLTERRA_SIMULATION_HPP
 #define VOLTERRA_SIMULATION_HPP
 
-#include <vector>
-#include <iostream>
 #include <cmath>
+#include <iostream>
+#include <vector>
 
 namespace volterra {
 
@@ -53,16 +53,17 @@ class Simulation
   }
 
   // Calcola l'integrale primo H(x, y)
-  double compute_H(double x, double y) const{
-double H = -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y);
-return H;
+  double compute_H(double x, double y) const
+  {
+    double H = -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y);
+    return H;
   };
 
   // Esegue un passo temporale Δt
-  void evolve(){};
+  void evolve() {};
 
   // Esegue più passi
-  void run(int steps){};
+  void run(int steps) {};
 
   // Restituisce i risultati assoluti (x, y, H)
   const std::vector<State>& get_results() const;
