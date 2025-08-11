@@ -2,6 +2,8 @@
 #define VOLTERRA_SIMULATION_HPP
 
 #include <vector>
+#include <iostream>
+#include <cmath>
 
 namespace volterra {
 
@@ -14,7 +16,6 @@ struct State
 
 class Simulation
 {
- private:
   // Parametri del modello (tutti > 0)
   double A_;
   double B_;
@@ -32,9 +33,6 @@ class Simulation
 
   // Risultati assoluti: (x, y, H)
   std::vector<State> results_;
-
-  // Calcola l'integrale primo H(x, y)
-  double compute_H(double x, double y) const;
 
  public:
   // Costruttore
@@ -54,11 +52,17 @@ class Simulation
     results_.push_back({x0, y0, compute_H(x0, y0)});
   }
 
+  // Calcola l'integrale primo H(x, y)
+  double compute_H(double x, double y) const{
+double H = -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y);
+return H;
+  };
+
   // Esegue un passo temporale Δt
-  void evolve();
+  void evolve(){};
 
   // Esegue più passi
-  void run(int steps);
+  void run(int steps){};
 
   // Restituisce i risultati assoluti (x, y, H)
   const std::vector<State>& get_results() const;
