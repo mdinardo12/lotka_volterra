@@ -20,12 +20,12 @@ Simulation::Simulation(double A, double B, double C, double D, double x0,
     , results_{}
 {
   if (A <= 0 || B <= 0 || C <= 0 || D <= 0 || dt <= 0 || x0 <= 0 || y0 <= 0) {
-    throw std::runtime_error{"Input parameters must be positive"};
+    throw std::runtime_error("Input parameters must be positive");
   };
 
   if (dt < 0.001) {
-    throw std::runtime_error{"dt must be greater than 0.001"};
-  }
+    throw std::runtime_error("dt must be greater than 0.001");
+  };
 
   results_.push_back({x0, y0, compute_H(x0, y0)});
 }
@@ -53,6 +53,10 @@ void Simulation::evolve()
 
 void Simulation::run(int steps)
 {
+  if (std::floor(steps) != steps) {
+    throw std::runtime_error("The number of times must be integer");
+  }; // verifica che steps sia un numero intero
+
   for (int i = 0; i < steps; i++) {
     evolve;
   }
