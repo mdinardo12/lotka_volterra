@@ -42,10 +42,10 @@ class Simulation
   double compute_H(double x, double y) const;
 
   // Esegue un passo temporale Δt
-  void evolve() {};
+  void evolve();
 
   // Esegue più passi
-  void run(int steps) {};
+  void run(int steps);
 
   // Restituisce i risultati assoluti (x, y, H)
   const std::vector<State>& get_results() const;
