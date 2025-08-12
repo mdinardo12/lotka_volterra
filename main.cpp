@@ -1,5 +1,6 @@
-#include <cstdlib>
+// #include <cstdlib>
 #include <exception>
+#include <fstream>
 #include <iostream>
 
 #include "simulation.hpp"
@@ -7,21 +8,49 @@
 int main()
 {
   try {
-    double A;
-    double B;
-    double C;
-    double D;
-    double dt;
-    double steps; // considera che deve essere per forza intero qiundi potremmo
-                  // cambiarlo in int
+    using namespace volterra;
 
-    std::cout 
-        << "Inserisci rispettivamente la velocità di riproduzione delle prede "
-           "e dei predatori, e la mortalità delle prede e dei predatori: \n";
-    std::cin >> A, C, B, D;
-    std::cout << "Inserisci rispettivamente il tempo di un evento evoluzione e "
-                 "il numero di eventi che si vuole avere: \n";
-    std::cin >> dt, steps; //da tradurre in inglese
+    double A, B, C, D, x0, y0, dt;
+    int steps;
+
+    std::cout << "=== Volterra simulation ===\n";
+
+    std::cout << "Enter A (prey reproduction rate): ";
+    std::cin >> A;
+    std::cout << "Enter B (prey mortality rate): ";
+    std::cin >> B;
+    std::cout << "Enter C (predator reproduction rate): ";
+    std::cin >> C;
+    std::cout << "Enter D (predator mortality rate): ";
+    std::cin >> D;
+
+    std::cout << "Enter x0 (initial prey population density): ";
+    std::cin >> x0;
+    std::cout << "Enter y0 (initial predator population density): ";
+    std::cin >> y0;
+
+    std::cout << "Enter time step dt: ";
+    std::cin >> dt;
+
+    std::cout << "Enter number of steps: ";
+    std::cin >> steps;
+
+    Simulation sim(A, B, C, D, x0, y0, dt);
+
+    sim.run(steps);
+
+    std::ofstream file("results.txt");
+    if (!file) {
+      std::cout << "Error opening output file.\n";
+      return 1;
+    }
+
+    file << "x    y    H\n"; // intestazione
+    for (const auto& s : sim.get_results()) {
+      file << s.x << " " << s.y << " " << s.H << "\n";
+    }
+
+    std::cout << "Results saved in 'results.txt'\n";
 
   } catch (std::exception const& e) {
     std::cerr << "Caught exception: '" << e.what() << "'\n";

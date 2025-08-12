@@ -37,7 +37,7 @@ string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined")
 
 # dichiara un eseguibile chiamato "progetto", prodotto a partire dai file sorgente indicati
 # sostituire "progetto" con il nome del proprio eseguibile e i file sorgente con i propri (con nomi sensati!)
-add_executable(progetto mattia.cpp)
+add_executable(progetto main.cpp simulation.cpp)
 # nel caso si usi SFML. analogamente per eventuali altre librerie
 #target_link_libraries(progetto PRIVATE sfml-graphics)
 
@@ -48,7 +48,7 @@ add_executable(progetto mattia.cpp)
 if (BUILD_TESTING)
 
   # aggiungi l'eseguibile progetto.t
-  add_executable(progetto.t mattia.cpp)
+  add_executable(progetto.t test_simulation.cpp simulation.cpp)
   # aggiungi l'eseguibile progetto.t alla lista dei test
   add_test(NAME progetto.t COMMAND progetto.t)
 

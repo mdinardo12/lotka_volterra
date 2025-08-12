@@ -21,13 +21,13 @@ class Simulation
   double D_;
   double dt_;
 
-  // Stato relativo (x_rel, y_rel)
-  double x_rel_;
-  double y_rel_;
-
   // Punti di equilibrio
   double x_eq_;
   double y_eq_;
+
+  // Stato relativo (x_rel, y_rel)
+  double x_rel_;
+  double y_rel_;
 
   // Risultati assoluti: (x, y, H)
   std::vector<State> results_;
