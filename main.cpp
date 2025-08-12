@@ -1,4 +1,4 @@
-// #include <cstdlib>
+#include <cstdlib>
 #include <exception>
 #include <fstream>
 #include <iostream>
@@ -35,6 +35,11 @@ int main()
     std::cout << "Enter number of steps: ";
     std::cin >> steps;
 
+    if (!std::cin >> steps) {
+      std::cout << "Error: must enter a integer number of steps\n";
+      return 1;
+    }
+
     Simulation sim(A, B, C, D, x0, y0, dt);
 
     sim.run(steps);
@@ -45,7 +50,7 @@ int main()
       return 1;
     }
 
-    file << "x    y    H\n"; // intestazione
+    file << "x    y    H\n";
     for (const auto& s : sim.get_results()) {
       file << s.x << " " << s.y << " " << s.H << "\n";
     }

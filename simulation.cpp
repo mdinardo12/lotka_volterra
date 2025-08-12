@@ -53,10 +53,6 @@ void Simulation::evolve()
 
 void Simulation::run(int steps)
 {
-  if (std::floor(steps) != steps) {
-    throw std::runtime_error("The number of times must be integer");
-  }; // verifica che steps sia un numero intero
-
   for (int i = 0; i < steps; ++i) {
     evolve();
   }
