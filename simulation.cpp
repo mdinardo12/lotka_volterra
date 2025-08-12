@@ -23,6 +23,10 @@ Simulation::Simulation(double A, double B, double C, double D, double x0,
     throw std::runtime_error{"Input parameters must be positive"};
   };
 
+  if (dt < 0.001) {
+    throw std::runtime_error{"dt must be greater than 0.001"};
+  }
+
   results_.push_back({x0, y0, compute_H(x0, y0)});
 }
 
@@ -38,6 +42,8 @@ void Simulation::evolve()
 
   x_rel_ = x_rel_next;
   y_rel_ = y_rel_next;
+
+  assert(x_rel_ > 0 && y_rel_ > 0);
 
   double x_abs = x_rel_ * x_eq_;
   double y_abs = y_rel_ * y_eq_;

@@ -25,6 +25,9 @@ TEST_CASE("Testing Simulation")
     double H1 = sim.compute_H(50., 20.);
     double H2 = sim.compute_H(30., 40.);
     double H3 = sim.compute_H(1000., 10.);
+    double H1 = sim.compute_H(50., 20.);
+    double H2 = sim.compute_H(30., 40.);
+    double H3 = sim.compute_H(1000., 10.);
 
     CHECK(H1 == doctest::Approx(0.21).epsilon(0.001));
     CHECK(H2 == doctest::Approx(0.39).epsilon(0.001));
@@ -37,8 +40,13 @@ TEST_CASE("Testing Simulation")
     CHECK_THROWS(volterra::Simulation(0.2, 0.01, 0.02, 0.3, 0., 100., 0.001));
   }
 
-  SUBCASE("")
-  {}
+  SUBCASE("Simulation with dt less than 0.001")
+  {
+    CHECK_THROWS(volterra::Simulation(0.2, 0.05, 0.02, 0.3, 30., 100., 0.0001));
+  }
+
+  {
+  }
   SUBCASE("")
   {}
   SUBCASE("")

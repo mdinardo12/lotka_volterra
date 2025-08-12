@@ -1,7 +1,6 @@
 #ifndef VOLTERRA_SIMULATION_HPP
 #define VOLTERRA_SIMULATION_HPP
 
-#include <iostream>
 #include <vector>
 
 namespace volterra {

@@ -1,5 +1,3 @@
-#include "simulation.cpp"
-
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -9,6 +7,9 @@
 int main()
 {
   try {
+    double A;
+    std::cin >> A;
+
   } catch (std::exception const& e) {
     std::cerr << "Caught exception: '" << e.what() << "'\n";
     return EXIT_FAILURE;
