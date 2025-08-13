@@ -19,7 +19,7 @@ int main()
     std::cin >> A;
 
     if (!(std::cin >> A)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
+      std::cerr << "Error: parameter must be a rational number";
       exit(EXIT_FAILURE);
     }
 
