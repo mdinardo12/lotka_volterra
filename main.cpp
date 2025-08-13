@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "simulation.cpp"
+#include "simulation.cpp" // !!!ho cambiato in cpp perchè altrimenti non mi girava, poi ne parliamo, e mi dici come lo mandavi te
 
 int main()
 {
