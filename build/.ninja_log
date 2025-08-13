@@ -1,0 +1,8 @@
+# ninja log v5
+5	782	1755078686125737214	CMakeFiles/progetto.t.dir/Debug/simulation.cpp.o	7433d39c2b17e5d8
+3	783	1755078686125737214	CMakeFiles/progetto.dir/Debug/main.cpp.o	447a8ddee0fe6d9f
+4	788	1755078686133581957	CMakeFiles/progetto.dir/Debug/simulation.cpp.o	7803eced341581a8
+788	913	1755078686255175479	Debug/progetto	5128c7181622287a
+5	4973	1755078690308747374	CMakeFiles/progetto.t.dir/Debug/test_simulation.cpp.o	9dc961cc45e3f9ae
+4973	5170	1755078690508933990	Debug/progetto.t	5621c97c6ae17efd
+2	122	0	CMakeFiles/Debug/test.util	250f27c7d61fc68c
