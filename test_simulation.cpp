@@ -1,12 +1,14 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
+#include "input_utils.hpp"
 #include "simulation.hpp"
 
 #include "doctest.h"
+#include <sstream>
 
-TEST_CASE("Testing Simulation")
+TEST_CASE("Simulation - constructor and initialization")
 {
-  SUBCASE("Testing initial state")
+  SUBCASE("Initial state")
   {
     double A = 0.1, B = 0.02, C = 0.01, D = 0.1;
     double x0 = 50., y0 = 20.;
@@ -18,69 +20,13 @@ TEST_CASE("Testing Simulation")
     CHECK(state0.y == doctest::Approx(y0));
   }
 
-  SUBCASE("Testing H computing ")
+  SUBCASE("Initial H matches compute_H result")
   {
-    volterra::Simulation sim(0.1, 0.02, 0.01, 0.1);
+    volterra::Simulation sim(0.5, 0.1, 0.05, 0.2, 10., 5., .01);
+    auto s0    = sim.get_results()[0];
+    auto Hcalc = sim.compute_H(10., 5.);
 
-    double H1 = sim.compute_H(50., 20.);
-    double H2 = sim.compute_H(30., 40.);
-    double H3 = sim.compute_H(1000., 10.);
-
-    CHECK(H1 == doctest::Approx(0.21).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(0.39).epsilon(0.001));
-    CHECK(H3 == doctest::Approx(9.28).epsilon(0.001));
-  }
-
-  SUBCASE("Testing H computing high prey mortality ")
-  {
-    volterra::Simulation sim(0.7, 3.15, 1.1, 0.4);
-
-    double H1 = sim.compute_H(1.5, 72.);
-    double H2 = sim.compute_H(13.7, 13.7);
-    double H3 = sim.compute_H(0.003, 0.0002);
-
-    CHECK(H1 == doctest::Approx(225.29).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(55.345).epsilon(0.001));
-    CHECK(H3 == doctest::Approx(8.29).epsilon(0.001));
-  }
-
-  SUBCASE("Testing H computing high predator mortality ")
-  {
-    volterra::Simulation sim(2.6, 3.3, 4.2, 7.3);
-
-    double H1 = sim.compute_H(0.012, 35.);
-    double H2 = sim.compute_H(49., 0.04);
-    double H3 = sim.compute_H(100., 100.);
-
-    CHECK(H1 == doctest::Approx(138.59).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(185.89).epsilon(0.001));
-    CHECK(H3 == doctest::Approx(704.409).epsilon(0.001));
-  }
-
-  SUBCASE("Testing H computing high prey reproduction speed")
-  {
-    volterra::Simulation sim(15.4, 8.2, 7.7, 2.5);
-
-    double H1 = sim.compute_H(13.5, 41.1);
-    double H2 = sim.compute_H(87.6, 29.);
-    double H3 = sim.compute_H(0.1, 0.1);
-
-    CHECK(H1 == doctest::Approx(377.24).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(849.28).epsilon(0.001));
-    CHECK(H3 == doctest::Approx(42.806).epsilon(0.001));
-  }
-
-  SUBCASE("Testing H computing high predator reproduction speed")
-  {
-    volterra::Simulation sim(5.7, 4.1, 8.9, 7.6);
-
-    double H1 = sim.compute_H(24.2, 37.3);
-    double H2 = sim.compute_H(30.4, 16.9);
-    double H3 = sim.compute_H(34, 34);
-
-    CHECK(H1 == doctest::Approx(323.47).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(297.78).epsilon(0.001));
-    CHECK(H3 == doctest::Approx(395.099).epsilon(0.001));
+    CHECK(s0.H == doctest::Approx(Hcalc));
   }
 
   SUBCASE("Parametric tests for Simulation")
@@ -122,8 +68,79 @@ TEST_CASE("Testing Simulation")
       }
     }
   }
+}
 
-  SUBCASE("Testing evolve")
+TEST_CASE("Simulation - compute_H function")
+{
+  SUBCASE("Compute H base case")
+  {
+    volterra::Simulation sim(0.1, 0.02, 0.01, 0.1);
+
+    double H1 = sim.compute_H(50., 20.);
+    double H2 = sim.compute_H(30., 40.);
+    double H3 = sim.compute_H(1000., 10.);
+
+    CHECK(H1 == doctest::Approx(0.21).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(0.39).epsilon(0.001));
+    CHECK(H3 == doctest::Approx(9.28).epsilon(0.001));
+  }
+
+  SUBCASE("Compute H high prey mortality")
+  {
+    volterra::Simulation sim(0.7, 3.15, 1.1, 0.4);
+
+    double H1 = sim.compute_H(1.5, 72.);
+    double H2 = sim.compute_H(13.7, 13.7);
+    double H3 = sim.compute_H(0.003, 0.0002);
+
+    CHECK(H1 == doctest::Approx(225.29).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(55.345).epsilon(0.001));
+    CHECK(H3 == doctest::Approx(8.29).epsilon(0.001));
+  }
+
+  SUBCASE("Compute H high predator mortality")
+  {
+    volterra::Simulation sim(2.6, 3.3, 4.2, 7.3);
+
+    double H1 = sim.compute_H(0.012, 35.);
+    double H2 = sim.compute_H(49., 0.04);
+    double H3 = sim.compute_H(100., 100.);
+
+    CHECK(H1 == doctest::Approx(138.59).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(185.89).epsilon(0.001));
+    CHECK(H3 == doctest::Approx(704.409).epsilon(0.001));
+  }
+
+  SUBCASE("Compute H high prey reproduction speed")
+  {
+    volterra::Simulation sim(15.4, 8.2, 7.7, 2.5);
+
+    double H1 = sim.compute_H(13.5, 41.1);
+    double H2 = sim.compute_H(87.6, 29.);
+    double H3 = sim.compute_H(0.1, 0.1);
+
+    CHECK(H1 == doctest::Approx(377.24).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(849.28).epsilon(0.001));
+    CHECK(H3 == doctest::Approx(42.806).epsilon(0.001));
+  }
+
+  SUBCASE("Compute H high predator reproduction speed")
+  {
+    volterra::Simulation sim(5.7, 4.1, 8.9, 7.6);
+
+    double H1 = sim.compute_H(24.2, 37.3);
+    double H2 = sim.compute_H(30.4, 16.9);
+    double H3 = sim.compute_H(34, 34);
+
+    CHECK(H1 == doctest::Approx(323.47).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(297.78).epsilon(0.001));
+    CHECK(H3 == doctest::Approx(395.099).epsilon(0.001));
+  }
+}
+
+TEST_CASE("Simulation - evolution")
+{
+  SUBCASE("Single evolve step")
   {
     volterra::Simulation sim(1.0, 0.5, 0.75, 0.25, 100.0, 80.0, 0.001);
 
@@ -139,7 +156,7 @@ TEST_CASE("Testing Simulation")
     CHECK(next.y == doctest::Approx(86.0).epsilon(0.1));
   }
 
-  SUBCASE("Testing run - multiple evolution")
+  SUBCASE("Run multiple steps")
   {
     volterra::Simulation sim(0.8, 0.3, 0.5, 0.2, 50.0, 60.0, 0.001);
     int steps = 100;
@@ -151,7 +168,7 @@ TEST_CASE("Testing Simulation")
     CHECK(after == before + static_cast<size_t>(steps));
   }
 
-  SUBCASE("run(0) does not change the result")
+  SUBCASE("Run zero steps")
   {
     volterra::Simulation sim(0.6, 0.1, 0.2, 0.05, 80.0, 120.0, 0.002);
 
@@ -162,7 +179,26 @@ TEST_CASE("Testing Simulation")
     CHECK(before == after);
   }
 
-  SUBCASE("get_results returns consistent absolute states")
+  SUBCASE("Run(1) equals evolve()")
+  {
+    volterra::Simulation sim1(1.0, 0.5, 0.75, 0.25, 100.0, 80.0, 0.001);
+    volterra::Simulation sim2 = sim1; // copia iniziale
+
+    sim1.run(1);
+    sim2.evolve();
+
+    auto r1 = sim1.get_results();
+    auto r2 = sim2.get_results();
+
+    CHECK(r1.size() == r2.size());
+    CHECK(r1[1].x == doctest::Approx(r2[1].x));
+    CHECK(r1[1].y == doctest::Approx(r2[1].y));
+  }
+}
+
+TEST_CASE("Simulation - results consistency")
+{
+  SUBCASE("Results are positive")
   {
     volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0, 0.001);
     sim.run(2);
@@ -174,7 +210,6 @@ TEST_CASE("Testing Simulation")
     auto s1 = results[1];
     auto s2 = results[2];
 
-    // Tutti i valori devono essere positivi
     CHECK(s0.x > 0);
     CHECK(s0.y > 0);
     CHECK(s1.x > 0);
@@ -183,7 +218,7 @@ TEST_CASE("Testing Simulation")
     CHECK(s2.y > 0);
   }
 
-  SUBCASE("Testing H being costant")
+  SUBCASE("H remains constant")
   {
     volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0, 0.001);
     sim.run(2);
@@ -200,31 +235,6 @@ TEST_CASE("Testing Simulation")
     CHECK(s2.H == doctest::Approx(s0.H).epsilon(0.1));
   }
 
-  SUBCASE("run(1) is equivalent to evolve()")
-  {
-    volterra::Simulation sim1(1.0, 0.5, 0.75, 0.25, 100.0, 80.0, 0.001);
-    volterra::Simulation sim2 = sim1; // copia iniziale
-
-    sim1.run(1);
-    sim2.evolve();
-
-    auto r1 = sim1.get_results();
-    auto r2 = sim2.get_results();
-
-    CHECK(r1.size() == r2.size());
-    CHECK(r1[1].x == doctest::Approx(r2[1].x));
-    CHECK(r1[1].y == doctest::Approx(r2[1].y));
-  }
-
-  SUBCASE("Initial H matches compute_H result")
-  {
-    volterra::Simulation sim(0.5, 0.1, 0.05, 0.2, 10., 5., .01);
-    auto s0    = sim.get_results()[0];
-    auto Hcalc = sim.compute_H(10., 5.);
-
-    CHECK(s0.H == doctest::Approx(Hcalc));
-  }
-
   SUBCASE("H remains constant within tight tolerance")
   {
     volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0, 0.001);
@@ -236,5 +246,47 @@ TEST_CASE("Testing Simulation")
     for (auto& state : results) {
       CHECK(state.H == doctest::Approx(H0).epsilon(0.1));
     }
+  }
+}
+
+TEST_CASE("Testing read_param")
+{
+  SUBCASE("Valid integer input")
+  {
+    std::istringstream input("42\n");
+    std::cin.rdbuf(input.rdbuf());
+    int x = read_param<int>("Enter integer: ");
+    CHECK(x == 42);
+  }
+
+  SUBCASE("Valid double input")
+  {
+    std::istringstream input("3.14\n");
+    std::cin.rdbuf(input.rdbuf());
+    double d = read_param<double>("Enter double: ");
+    CHECK(d == doctest::Approx(3.14));
+  }
+
+  SUBCASE("Invalid input")
+  {
+    std::istringstream input("abc\n");
+    std::cin.rdbuf(input.rdbuf());
+    CHECK_THROWS(read_param<int>("Enter integer: "));
+  }
+
+  SUBCASE("Negative number")
+  {
+    std::istringstream input("-5\n");
+    std::cin.rdbuf(input.rdbuf());
+    int x = read_param<int>("Enter integer: ");
+    CHECK(x == -5);
+  }
+
+  SUBCASE("Zero input")
+  {
+    std::istringstream input("0\n");
+    std::cin.rdbuf(input.rdbuf());
+    int x = read_param<int>("Enter integer: ");
+    CHECK(x == 0);
   }
 }

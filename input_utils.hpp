@@ -6,13 +6,12 @@
 
 // Template generico per leggere un input sicuro
 template<typename T>
-T read_param(const std::string& prompt, const std::string& error_msg)
+T read_param(const std::string& prompt)
 {
   T value;
   std::cout << prompt;
   if (!(std::cin >> value)) {
-    std::cout << "Error: " << error_msg << "\n";
-    std::exit(EXIT_FAILURE);
+    throw std::runtime_error("Invalid input");
   }
   return value;
 }

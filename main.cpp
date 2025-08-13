@@ -14,24 +14,16 @@ int main()
 
     std::cout << "=== Volterra simulation ===\n";
 
-    double A = read_param<double>("Enter A (prey reproduction rate): ",
-                                  "parameter must be a rational number");
-    double B = read_param<double>("Enter B (prey mortality rate): ",
-                                  "parameter must be a rational number");
-    double C = read_param<double>("Enter C (predator reproduction rate): ",
-                                  "parameter must be a rational number");
-    double D = read_param<double>("Enter D (predator mortality rate): ",
-                                  "parameter must be a rational number");
+    double A = read_param<double>("Enter A (prey reproduction rate): ");
+    double B = read_param<double>("Enter B (prey mortality rate): ");
+    double C = read_param<double>("Enter C (predator reproduction rate): ");
+    double D = read_param<double>("Enter D (predator mortality rate): ");
     double x0 =
-        read_param<double>("Enter x0 (initial prey population density): ",
-                           "parameter must be a rational number");
+        read_param<double>("Enter x0 (initial prey population density): ");
     double y0 =
-        read_param<double>("Enter y0 (initial predator population density): ",
-                           "parameter must be a rational number");
-    double dt = read_param<double>("Enter time step dt: ",
-                                   "parameter must be a rational number");
-    int steps = read_param<int>("Enter number of steps: ",
-                                "must enter an integer number of steps");
+        read_param<double>("Enter y0 (initial predator population density): ");
+    double dt = read_param<double>("Enter time step dt: ");
+    int steps = read_param<int>("Enter number of steps: ");
 
     Simulation sim(A, B, C, D, x0, y0, dt);
 
