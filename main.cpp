@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "simulation.hpp"
+#include "simulation.cpp"
 
 int main()
 {
@@ -41,8 +41,7 @@ int main()
     } // ! nega il valore booleano, il blocco if viene letto solo se la lettura
       // fallisce
 
-    if (!(std::cin >> A || std::cin >> B || std::cin >> C || std::cin >> D
-          || std::cin >> x0 || std::cin >> y0 || std::cin >> dt)) {
+    if (!(std::cin >> A || std::cin >> B || std::cin >> C || std::cin >> D || std::cin >> x0 || std::cin >> y0 || std::cin >> dt)) {
       std::cout << "Error: parameters must be rational number\n";
       return 1;
     }
