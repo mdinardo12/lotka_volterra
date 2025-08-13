@@ -2,7 +2,9 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
+#include <string>
 
+#include "input_utils.hpp"
 #include "simulation.hpp"
 
 int main()
@@ -10,75 +12,26 @@ int main()
   try {
     using namespace volterra;
 
-    double A, B, C, D, x0, y0, dt;
-    int steps;
-
     std::cout << "=== Volterra simulation ===\n";
 
-    std::cout << "Enter A (prey reproduction rate): ";
-    // std::cin >> A;
-
-    if (!(std::cin >> A)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter B (prey mortality rate): ";
-    // std::cin >> B;
-
-    if (!(std::cin >> B)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter C (predator reproduction rate): ";
-    // std::cin >> C;
-
-    if (!(std::cin >> C)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter D (predator mortality rate): ";
-    // std::cin >> D;
-
-    if (!(std::cin >> D)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter x0 (initial prey population density): ";
-    // std::cin >> x0;
-
-    if (!(std::cin >> x0)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter y0 (initial predator population density): ";
-    // std::cin >> y0;
-
-    if (!(std::cin >> y0)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter time step dt: ";
-    // std::cin >> dt;
-
-    if (!(std::cin >> dt)) {
-      std::cerr << "Error: parameter must be a rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    std::cout << "Enter number of steps: ";
-    // std::cin >> steps;
-
-    if (!(std::cin >> steps)) {
-      std::cerr << "Error: must enter a integer number of steps" << std::endl;
-      exit(EXIT_FAILURE);
-    } // ! nega il valore booleano, il blocco if viene letto solo se la
-      // lettura fallisce
+    double A = read_param<double>("Enter A (prey reproduction rate): ",
+                                  "parameter must be a rational number");
+    double B = read_param<double>("Enter B (prey mortality rate): ",
+                                  "parameter must be a rational number");
+    double C = read_param<double>("Enter C (predator reproduction rate): ",
+                                  "parameter must be a rational number");
+    double D = read_param<double>("Enter D (predator mortality rate): ",
+                                  "parameter must be a rational number");
+    double x0 =
+        read_param<double>("Enter x0 (initial prey population density): ",
+                           "parameter must be a rational number");
+    double y0 =
+        read_param<double>("Enter y0 (initial predator population density): ",
+                           "parameter must be a rational number");
+    double dt = read_param<double>("Enter time step dt: ",
+                                   "parameter must be a rational number");
+    int steps = read_param<int>("Enter number of steps: ",
+                                "must enter an integer number of steps");
 
     Simulation sim(A, B, C, D, x0, y0, dt);
 

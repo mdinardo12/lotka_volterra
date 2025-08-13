@@ -1,8 +1,15 @@
 # ninja log v5
-5	782	1755078686125737214	CMakeFiles/progetto.t.dir/Debug/simulation.cpp.o	7433d39c2b17e5d8
-3	783	1755078686125737214	CMakeFiles/progetto.dir/Debug/main.cpp.o	447a8ddee0fe6d9f
-4	788	1755078686133581957	CMakeFiles/progetto.dir/Debug/simulation.cpp.o	7803eced341581a8
-788	913	1755078686255175479	Debug/progetto	5128c7181622287a
-5	4973	1755078690308747374	CMakeFiles/progetto.t.dir/Debug/test_simulation.cpp.o	9dc961cc45e3f9ae
-4973	5170	1755078690508933990	Debug/progetto.t	5621c97c6ae17efd
-2	122	0	CMakeFiles/Debug/test.util	250f27c7d61fc68c
+2	1159	1755084578341171230	CMakeFiles/progetto.t.dir/Debug/simulation.cpp.o	fb7fc807838965ab
+2	1164	1755084578345171331	CMakeFiles/progetto.dir/Debug/simulation.cpp.o	fa0a61feed15647c
+1	1199	1755084578381172233	CMakeFiles/progetto.dir/Debug/main.cpp.o	57884bccb670f69c
+1199	1302	1755084578483174791	Debug/progetto	5128c7181622287a
+2	7381	1755084584553327001	CMakeFiles/progetto.t.dir/Debug/test_simulation.cpp.o	1a9878c15fdcec7e
+7381	7532	1755084584712330989	Debug/progetto.t	5621c97c6ae17efd
+2	173	0	CMakeFiles/Debug/test.util	aebbc77af8ef366b
+1	1027	1755084618350900419	CMakeFiles/progetto.dir/Release/main.cpp.o	f2c89de1c3cca057
+2	1036	1755084618360900217	CMakeFiles/progetto.t.dir/Release/simulation.cpp.o	9296f9fb45231985
+2	1037	1755084618361900197	CMakeFiles/progetto.dir/Release/simulation.cpp.o	ad7fe689e825ca
+1037	1127	1755084618451898379	Release/progetto	faa7c4cf86031b09
+2	7081	1755084624404779472	CMakeFiles/progetto.t.dir/Release/test_simulation.cpp.o	e441e8a72e6baad1
+7081	7172	1755084624495777677	Release/progetto.t	b6445070a9018160
+2	16	0	CMakeFiles/Release/test.util	81b5b35e623d53b

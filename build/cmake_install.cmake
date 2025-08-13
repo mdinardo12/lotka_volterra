@@ -1,4 +1,4 @@
-# Install script for directory: /home/federico-albano/pf_labs/project
+# Install script for directory: /home/mattia/pf/progetto_volterra
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/federico-albano/pf_labs/project/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/mattia/pf/progetto_volterra/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

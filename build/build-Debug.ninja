@@ -70,7 +70,7 @@ build progetto.t: phony Debug/progetto.t
 
 
 #############################################
-# Folder: /home/federico-albano/pf_labs/project/build
+# Folder: /home/mattia/pf/progetto_volterra/build
 
 build all: phony all$:Debug
 

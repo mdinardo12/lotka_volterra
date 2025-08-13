@@ -31,6 +31,7 @@ class Simulation
  public:
   Simulation(double A, double B, double C, double D, double x0, double y0,
              double dt);
+  Simulation(double A, double B, double C, double D);
 
   double compute_H(double x, double y) const;
 

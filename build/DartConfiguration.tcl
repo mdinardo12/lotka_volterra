@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/federico-albano/pf_labs/project
-BuildDirectory: /home/federico-albano/pf_labs/project/build
+SourceDirectory: /home/mattia/pf/progetto_volterra
+BuildDirectory: /home/mattia/pf/progetto_volterra/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: hpfede
+Site: ubuntu
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Linux-c++
@@ -27,7 +27,7 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/federico-albano/pf_labs/project"
+ConfigureCommand: "/usr/bin/cmake" "/home/mattia/pf/progetto_volterra"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
