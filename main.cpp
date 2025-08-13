@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "simulation.cpp"
+#include "simulation.hpp"
 
 int main()
 {
@@ -15,7 +15,7 @@ int main()
 
     std::cout << "=== Volterra simulation ===\n";
 
-    std::cout << "Enter A (prey reproduction rate):\n";
+    std::cout << "Enter A (prey reproduction rate): ";
     // std::cin >> A;
 
     if (!(std::cin >> A)) {
@@ -23,7 +23,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter B (prey mortality rate):\n";
+    std::cout << "Enter B (prey mortality rate): ";
     // std::cin >> B;
 
     if (!(std::cin >> B)) {
@@ -31,7 +31,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter C (predator reproduction rate):\n";
+    std::cout << "Enter C (predator reproduction rate): ";
     // std::cin >> C;
 
     if (!(std::cin >> C)) {
@@ -39,7 +39,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter D (predator mortality rate):\n";
+    std::cout << "Enter D (predator mortality rate): ";
     // std::cin >> D;
 
     if (!(std::cin >> D)) {
@@ -47,7 +47,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter x0 (initial prey population density):\n";
+    std::cout << "Enter x0 (initial prey population density): ";
     // std::cin >> x0;
 
     if (!(std::cin >> x0)) {
@@ -55,7 +55,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter y0 (initial predator population density):\n";
+    std::cout << "Enter y0 (initial predator population density): ";
     // std::cin >> y0;
 
     if (!(std::cin >> y0)) {
@@ -63,7 +63,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter time step dt:\n";
+    std::cout << "Enter time step dt: ";
     // std::cin >> dt;
 
     if (!(std::cin >> dt)) {
@@ -71,7 +71,7 @@ int main()
       exit(EXIT_FAILURE);
     }
 
-    std::cout << "Enter number of steps:\n";
+    std::cout << "Enter number of steps: ";
     // std::cin >> steps;
 
     if (!(std::cin >> steps)) {
