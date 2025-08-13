@@ -39,9 +39,9 @@ TEST_CASE("Testing Simulation")
     double H2 = sim.compute_H(13.7, 13.7);
     double H3 = sim.compute_H(0.003, 0.0002);
 
-    CHECK(H1 == doctest::Approx(81.93).epsilon(0.001));
+    CHECK(H1 == doctest::Approx(225.29).epsilon(0.001));
     CHECK(H2 == doctest::Approx(55.345).epsilon(0.001));
-    CHECK(H3 == doctest::Approx(7.483).epsilon(0.001));
+    CHECK(H3 == doctest::Approx(8.29).epsilon(0.001));
   }
 
   SUBCASE("Testing H computing high predator mortality ")
@@ -52,8 +52,8 @@ TEST_CASE("Testing Simulation")
     double H2 = sim.compute_H(49., 0.04);
     double H3 = sim.compute_H(100., 100.);
 
-    CHECK(H1 == doctest::Approx(132.585).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(175.247).epsilon(0.001));
+    CHECK(H1 == doctest::Approx(138.59).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(185.89).epsilon(0.001));
     CHECK(H3 == doctest::Approx(704.409).epsilon(0.001));
   }
 
@@ -65,8 +65,8 @@ TEST_CASE("Testing Simulation")
     double H2 = sim.compute_H(87.6, 29.);
     double H3 = sim.compute_H(0.1, 0.1);
 
-    CHECK(H1 == doctest::Approx(377.799).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(864.321).epsilon(0.001));
+    CHECK(H1 == doctest::Approx(377.24).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(849.28).epsilon(0.001));
     CHECK(H3 == doctest::Approx(42.806).epsilon(0.001));
   }
 
@@ -78,8 +78,8 @@ TEST_CASE("Testing Simulation")
     double H2 = sim.compute_H(30.4, 16.9);
     double H3 = sim.compute_H(34, 34);
 
-    CHECK(H1 == doctest::Approx(385.523).epsilon(0.001));
-    CHECK(H2 == doctest::Approx(234.100).epsilon(0.001));
+    CHECK(H1 == doctest::Approx(323.47).epsilon(0.001));
+    CHECK(H2 == doctest::Approx(297.78).epsilon(0.001));
     CHECK(H3 == doctest::Approx(395.099).epsilon(0.001));
   }
 

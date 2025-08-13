@@ -35,8 +35,15 @@ int main()
     std::cout << "Enter number of steps: ";
     std::cin >> steps;
 
-    if (!std::cin >> steps) {
+    if (!(std::cin >> steps)) {
       std::cout << "Error: must enter a integer number of steps\n";
+      return 1;
+    } // ! nega il valore booleano, il blocco if viene letto solo se la lettura
+      // fallisce
+
+    if (!(std::cin >> A || std::cin >> B || std::cin >> C || std::cin >> D
+          || std::cin >> x0 || std::cin >> y0 || std::cin >> dt)) {
+      std::cout << "Error: parameters must be rational number\n";
       return 1;
     }
 
