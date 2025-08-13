@@ -36,14 +36,44 @@ int main()
     std::cin >> steps;
 
     if (!(std::cin >> steps)) {
-      std::cout << "Error: must enter a integer number of steps\n";
-      return 1;
+      std::cerr << "Error: must enter a integer number of steps" << std::endl;
+      exit(EXIT_FAILURE);
     } // ! nega il valore booleano, il blocco if viene letto solo se la lettura
       // fallisce
 
-    if (!(std::cin >> A || std::cin >> B || std::cin >> C || std::cin >> D || std::cin >> x0 || std::cin >> y0 || std::cin >> dt)) {
-      std::cout << "Error: parameters must be rational number\n";
-      return 1;
+    if (!(std::cin >> A)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
+    if (!(std::cin >> B)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
+    if (!(std::cin >> C)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
+    if (!(std::cin >> D)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
+    if (!(std::cin >> x0)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
+    if (!(std::cin >> y0)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
+    if (!(std::cin >> dt)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
     }
 
     Simulation sim(A, B, C, D, x0, y0, dt);
