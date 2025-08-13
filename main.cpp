@@ -17,24 +17,59 @@ int main()
 
     std::cout << "Enter A (prey reproduction rate): ";
     std::cin >> A;
-     if (!(std::cin >> A)) {
+
+    if (!(std::cin >> A)) {
       std::cerr << "Error: parameters must be rational number" << std::endl;
       exit(EXIT_FAILURE);
     }
+
     std::cout << "Enter B (prey mortality rate): ";
     std::cin >> B;
+
+    if (!(std::cin >> B)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
     std::cout << "Enter C (predator reproduction rate): ";
     std::cin >> C;
+
+    if (!(std::cin >> C)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
     std::cout << "Enter D (predator mortality rate): ";
     std::cin >> D;
 
+    if (!(std::cin >> D)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
     std::cout << "Enter x0 (initial prey population density): ";
     std::cin >> x0;
+
+    if (!(std::cin >> x0)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
     std::cout << "Enter y0 (initial predator population density): ";
     std::cin >> y0;
 
+    if (!(std::cin >> y0)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+
     std::cout << "Enter time step dt: ";
     std::cin >> dt;
+
+    if (!(std::cin >> dt)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
 
     std::cout << "Enter number of steps: ";
     std::cin >> steps;
@@ -44,38 +79,6 @@ int main()
       exit(EXIT_FAILURE);
     } // ! nega il valore booleano, il blocco if viene letto solo se la lettura
       // fallisce
-
-
-
-    if (!(std::cin >> B)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    if (!(std::cin >> C)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    if (!(std::cin >> D)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    if (!(std::cin >> x0)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    if (!(std::cin >> y0)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
-
-    if (!(std::cin >> dt)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
 
     Simulation sim(A, B, C, D, x0, y0, dt);
 
