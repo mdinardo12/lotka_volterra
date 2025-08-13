@@ -17,6 +17,10 @@ int main()
 
     std::cout << "Enter A (prey reproduction rate): ";
     std::cin >> A;
+     if (!(std::cin >> A)) {
+      std::cerr << "Error: parameters must be rational number" << std::endl;
+      exit(EXIT_FAILURE);
+    }
     std::cout << "Enter B (prey mortality rate): ";
     std::cin >> B;
     std::cout << "Enter C (predator reproduction rate): ";
@@ -41,10 +45,7 @@ int main()
     } // ! nega il valore booleano, il blocco if viene letto solo se la lettura
       // fallisce
 
-    if (!(std::cin >> A)) {
-      std::cerr << "Error: parameters must be rational number" << std::endl;
-      exit(EXIT_FAILURE);
-    }
+
 
     if (!(std::cin >> B)) {
       std::cerr << "Error: parameters must be rational number" << std::endl;
