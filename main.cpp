@@ -31,8 +31,8 @@ int main()
 
     std::ofstream file("results.txt");
     if (!file) {
-      std::cout << "Error opening output file.\n";
-      return 1; // qui darei errore invece di 1
+      std::cerr << "Error opening output file.\n";
+      return EXIT_FAILURE; 
     }
 
     file << "x    y    H\n";
