@@ -36,7 +36,7 @@ Simulation::Simulation(double A, double B, double C, double D)
 
 double Simulation::compute_H(double x, double y) const
 {
-  return -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y);
+  return -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y); // scriverei h = alla formula e poi return h, secondo me è più chiaro
 }
 
 void Simulation::evolve()
