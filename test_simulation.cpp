@@ -158,7 +158,7 @@ TEST_CASE("Simulation - evolution")
 
   SUBCASE("Run multiple steps")
   {
-    volterra::Simulation sim(0.8, 0.3, 0.5, 0.2, 50.0, 60.0, 0.001);
+    volterra::Simulation sim(3.8, 2.3, 2.5, 1.2, 50.0, 60.0, 0.001);
     int steps = 100;
 
     size_t before = sim.get_results().size();
@@ -170,7 +170,7 @@ TEST_CASE("Simulation - evolution")
 
   SUBCASE("Run zero steps")
   {
-    volterra::Simulation sim(0.6, 0.1, 0.2, 0.05, 80.0, 120.0, 0.002);
+    volterra::Simulation sim(5.6, 0.1, 3.2, 0.05, 80.0, 120.0, 0.002);
 
     auto before = sim.get_results().size();
     sim.run(0);
@@ -181,7 +181,7 @@ TEST_CASE("Simulation - evolution")
 
   SUBCASE("Run(1) equals evolve()")
   {
-    volterra::Simulation sim1(1.0, 0.5, 0.75, 0.25, 100.0, 80.0, 0.001);
+    volterra::Simulation sim1(2.0, 0.5, 1.75, 0.25, 100.0, 80.0, 0.001);
     volterra::Simulation sim2 = sim1; // copia iniziale
 
     sim1.run(1);
