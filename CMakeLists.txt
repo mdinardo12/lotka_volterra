@@ -39,7 +39,9 @@ string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined")
 # sostituire "progetto" con il nome del proprio eseguibile e i file sorgente con i propri (con nomi sensati!)
 add_executable(progetto main.cpp simulation.cpp)
 # nel caso si usi SFML. analogamente per eventuali altre librerie
+
 #target_link_libraries(progetto PRIVATE sfml-graphics)
+#target_link_libraries(viewer PRIVATE sfml-graphics sfml-window sfml-system)
 
 # aggiungere eventuali altri eseguibili
 

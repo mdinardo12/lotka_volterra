@@ -13,7 +13,7 @@ TEST_CASE("Simulation - constructor and initialization")
     double A = 0.1, B = 0.02, C = 0.01, D = 0.1;
     double x0 = 50., y0 = 20.;
 
-    volterra::Simulation sim(A, B, C, D, x0, y0, 0.001);
+    volterra::Simulation sim(A, B, C, D, x0, y0);
     auto state0 = sim.get_results()[0];
 
     CHECK(state0.x == doctest::Approx(x0));
@@ -22,7 +22,7 @@ TEST_CASE("Simulation - constructor and initialization")
 
   SUBCASE("Initial H matches compute_H result")
   {
-    volterra::Simulation sim(0.5, 0.1, 0.05, 0.2, 10., 5., .01);
+    volterra::Simulation sim(0.5, 0.1, 0.05, 0.2, 10., 5.);
     auto s0    = sim.get_results()[0];
     auto Hcalc = sim.compute_H(10., 5.);
 
@@ -33,32 +33,29 @@ TEST_CASE("Simulation - constructor and initialization")
   {
     struct Params
     {
-      double A, B, C, D, x0, y0, dt;
+      double A, B, C, D, x0, y0;
       bool should_throw;
     };
 
     std::vector<Params> cases = {
 
-        {0.1, 0.02, 0.01, 0.1, 50.0, 20.0, 0.001, false},
-        {2.0, 1.0, 0.5, 0.4, 100.0, 80.0, 0.005, false},
-        {1.0, 1.0, 1.0, 1.0, 10.0, 10.0, 0.002, false},
+        {0.1, 0.02, 0.01, 0.1, 50.0, 20.0, false},
+        {2.0, 1.0, 0.5, 0.4, 100.0, 80.0, false},
+        {1.0, 1.0, 1.0, 1.0, 10.0, 10.0, false},
 
-        {0.0, 0.02, 0.01, 0.1, 50.0, 20.0, 0.001, true},  // A non positivo
-        {0.1, -0.02, 0.01, 0.1, 50.0, 20.0, 0.001, true}, // B negativo
-        {0.1, 0.02, 0.0, 0.1, 50.0, 20.0, 0.001, true},   // C non positivo
-        {0.1, 0.02, 0.01, -1.0, 50.0, 20.0, 0.001, true}, // D negativo
-        {0.1, 0.02, 0.01, 0.1, -10.0, 20.0, 0.001, true}, // x0 negativo
-        {0.1, 0.02, 0.01, 0.1, 50.0, 0.0, 0.001, true},   // y0 zero
-        {0.1, 0.02, 0.01, 0.1, 50.0, 20.0, 0.0, true},    // dt zero
-        {0.1, 0.02, 0.01, 0.1, 50.0, 20.0, 0.0005, true}  // dt troppo piccolo
+        {0.0, 0.02, 0.01, 0.1, 50.0, 20.0, true},  // A non positivo
+        {0.1, -0.02, 0.01, 0.1, 50.0, 20.0, true}, // B negativo
+        {0.1, 0.02, 0.0, 0.1, 50.0, 20.0, true},   // C non positivo
+        {0.1, 0.02, 0.01, -1.0, 50.0, 20.0, true}, // D negativo
+        {0.1, 0.02, 0.01, 0.1, -10.0, 20.0, true}, // x0 negativo
+        {0.1, 0.02, 0.01, 0.1, 50.0, 0.0, true},   // y0 zero
     };
 
     for (auto& p : cases) {
       if (p.should_throw) {
-        CHECK_THROWS(
-            volterra::Simulation(p.A, p.B, p.C, p.D, p.x0, p.y0, p.dt));
+        CHECK_THROWS(volterra::Simulation(p.A, p.B, p.C, p.D, p.x0, p.y0));
       } else {
-        volterra::Simulation sim(p.A, p.B, p.C, p.D, p.x0, p.y0, p.dt);
+        volterra::Simulation sim(p.A, p.B, p.C, p.D, p.x0, p.y0);
         auto results = sim.get_results();
 
         CHECK(results.size() == 1);
@@ -142,7 +139,7 @@ TEST_CASE("Simulation - evolution")
 {
   SUBCASE("Single evolve step")
   {
-    volterra::Simulation sim(1.0, 0.5, 0.75, 0.25, 100.0, 80.0, 0.001);
+    volterra::Simulation sim(1.0, 0.5, 0.75, 0.25, 100.0, 80.0);
 
     CHECK(sim.get_results().size() == 1);
 
@@ -158,7 +155,7 @@ TEST_CASE("Simulation - evolution")
 
   SUBCASE("Run multiple steps")
   {
-    volterra::Simulation sim(3.8, 2.3, 2.5, 1.2, 50.0, 60.0, 0.001);
+    volterra::Simulation sim(0.8, 0.3, 0.5, 0.2, 50.0, 60.0);
     int steps = 100;
 
     size_t before = sim.get_results().size();
@@ -170,7 +167,7 @@ TEST_CASE("Simulation - evolution")
 
   SUBCASE("Run zero steps")
   {
-    volterra::Simulation sim(5.6, 0.1, 3.2, 0.05, 80.0, 120.0, 0.002);
+    volterra::Simulation sim(0.6, 0.1, 0.2, 0.05, 80.0, 120.0);
 
     auto before = sim.get_results().size();
     sim.run(0);
@@ -181,7 +178,7 @@ TEST_CASE("Simulation - evolution")
 
   SUBCASE("Run(1) equals evolve()")
   {
-    volterra::Simulation sim1(2.0, 0.5, 1.75, 0.25, 100.0, 80.0, 0.001);
+    volterra::Simulation sim1(1.0, 0.5, 0.75, 0.25, 100.0, 80.0);
     volterra::Simulation sim2 = sim1; // copia iniziale
 
     sim1.run(1);
@@ -200,7 +197,7 @@ TEST_CASE("Simulation - results consistency")
 {
   SUBCASE("Results are positive")
   {
-    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0, 0.001);
+    volterra::Simulation sim(1.0, 3.2, 4.3, 5.1, 200.0, 150.0);
     sim.run(2);
 
     const auto& results = sim.get_results();
@@ -220,7 +217,7 @@ TEST_CASE("Simulation - results consistency")
 
   SUBCASE("H remains constant")
   {
-    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0, 0.001);
+    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0);
     sim.run(2);
 
     const auto& results = sim.get_results();
@@ -237,7 +234,7 @@ TEST_CASE("Simulation - results consistency")
 
   SUBCASE("H remains constant within tight tolerance")
   {
-    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0, 0.001);
+    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0);
     sim.run(500);
 
     const auto& results = sim.get_results();

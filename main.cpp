@@ -22,17 +22,16 @@ int main()
         read_param<double>("Enter x0 (initial prey population density): ");
     double y0 =
         read_param<double>("Enter y0 (initial predator population density): ");
-    double dt = read_param<double>("Enter time step dt: ");
     int steps = read_param<int>("Enter number of steps: ");
 
-    Simulation sim(A, B, C, D, x0, y0, dt);
+    Simulation sim(A, B, C, D, x0, y0);
 
     sim.run(steps);
 
     std::ofstream file("results.txt");
     if (!file) {
       std::cerr << "Error opening output file.\n";
-      return EXIT_FAILURE; 
+      return EXIT_FAILURE;
     }
 
     file << "x    y    H\n";

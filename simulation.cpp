@@ -7,36 +7,33 @@
 namespace volterra {
 
 Simulation::Simulation(double A, double B, double C, double D, double x0,
-                       double y0, double dt)
+                       double y0)
     : A_{A}
     , B_{B}
     , C_{C}
     , D_{D}
-    , dt_{dt}
+    , dt_{.001}
     , x_eq_{D / C}
     , y_eq_{A / B}
     , x_rel_{x0 * C / D}
     , y_rel_{y0 * B / A}
     , results_{}
-{
-  if (A <= 0 || B <= 0 || C <= 0 || D <= 0 || dt <= 0 || x0 <= 0 || y0 <= 0) {
-    throw std::runtime_error("Input parameters must be positive");
-  };
 
-  if (dt < 0.001) {
-    throw std::runtime_error("dt must be greater than 0.001");
+{
+  if (A <= 0 || B <= 0 || C <= 0 || D <= 0 || x0 <= 0 || y0 <= 0) {
+    throw std::runtime_error("Input parameters must be positive");
   };
 
   results_.push_back({x0, y0, compute_H(x0, y0)});
 }
 
 Simulation::Simulation(double A, double B, double C, double D)
-    : Simulation(A, B, C, D, 10., 5., 0.01)
+    : Simulation(A, B, C, D, 10., 5.)
 {}
 
 double Simulation::compute_H(double x, double y) const
 {
-  return -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y); // scriverei h = alla formula e poi return h, secondo me è più chiaro
+  return -D_ * std::log(x) + C_ * x + B_ * y - A_ * std::log(y);
 }
 
 void Simulation::evolve()
@@ -57,10 +54,12 @@ void Simulation::evolve()
 
 void Simulation::run(int steps)
 {
+  if (steps < 0) {
+    throw std::runtime_error("steps must be >= 0");
+  }
   for (int i = 0; i < steps; ++i) {
     evolve();
   }
-  return;
 }
 
 const std::vector<State>& Simulation::get_results() const
