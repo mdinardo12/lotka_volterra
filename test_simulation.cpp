@@ -149,8 +149,8 @@ TEST_CASE("Simulation - evolution")
     CHECK(next.x > 0);
     CHECK(next.y > 0);
 
-    CHECK(next.x == doctest::Approx(103.9).epsilon(0.1));
-    CHECK(next.y == doctest::Approx(86.0).epsilon(0.1));
+    CHECK(next.x == doctest::Approx(96.1).epsilon(0.01));
+    CHECK(next.y == doctest::Approx(86.0).epsilon(0.01));
   }
 
   SUBCASE("Run multiple steps")
@@ -217,7 +217,7 @@ TEST_CASE("Simulation - results consistency")
 
   SUBCASE("H remains constant")
   {
-    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0);
+    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 2.0, 10.0);
     sim.run(2);
 
     const auto& results = sim.get_results();
@@ -227,21 +227,43 @@ TEST_CASE("Simulation - results consistency")
     auto s1 = results[1];
     auto s2 = results[2];
 
-    CHECK(s0.H == doctest::Approx(s1.H).epsilon(0.1));
-    CHECK(s1.H == doctest::Approx(s2.H).epsilon(0.1));
-    CHECK(s2.H == doctest::Approx(s0.H).epsilon(0.1));
+    CHECK(s0.H == doctest::Approx(s1.H).epsilon(0.01));
+    CHECK(s1.H == doctest::Approx(s2.H).epsilon(0.01));
+    CHECK(s2.H == doctest::Approx(s0.H).epsilon(0.01));
   }
 
   SUBCASE("H remains constant within tight tolerance")
   {
-    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 200.0, 150.0);
+    volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 2.0, 10.0);
     sim.run(500);
 
     const auto& results = sim.get_results();
     double H0           = results[0].H;
 
     for (auto& state : results) {
-      CHECK(state.H == doctest::Approx(H0).epsilon(0.1));
+      CHECK(state.H == doctest::Approx(H0).epsilon(0.05));
+    }
+  }
+
+  SUBCASE("Conservation of H far from equilibrium")
+  {
+    // Parametri con equilibrio (x_eq = D/C ≈ 0.444..., y_eq = A/B = 24)
+    double A = 1.2, B = 0.05, C = 0.9, D = 0.4;
+
+    // Condizioni iniziali molto lontane dall'equilibrio
+    double x0 = 400.0; // >> x_eq
+    double y0 = 2.0;   // << y_eq
+
+    volterra::Simulation sim(A, B, C, D, x0, y0);
+    sim.run(5000);
+
+    const auto& results = sim.get_results();
+    double H0           = results[0].H;
+
+    for (const auto& s : results) {
+      CHECK(s.x > 0);
+      CHECK(s.y > 0);
+      CHECK(s.H == doctest::Approx(H0).epsilon(0.1));
     }
   }
 }

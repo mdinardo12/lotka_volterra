@@ -15,8 +15,8 @@ Simulation::Simulation(double A, double B, double C, double D, double x0,
     , dt_{.001}
     , x_eq_{D / C}
     , y_eq_{A / B}
-    , x_rel_{x0 * C / D}
-    , y_rel_{y0 * B / A}
+    , x_rel_{x0 / x_eq_}
+    , y_rel_{y0 / y_eq_}
     , results_{}
 
 {
@@ -28,7 +28,7 @@ Simulation::Simulation(double A, double B, double C, double D, double x0,
 }
 
 Simulation::Simulation(double A, double B, double C, double D)
-    : Simulation(A, B, C, D, 10., 5.)
+    : Simulation(A, B, C, D, 1., 1.)
 {}
 
 double Simulation::compute_H(double x, double y) const
