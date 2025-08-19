@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <iostream>
 
-// Template generico per leggere un input sicuro
 template<typename T>
 T read_param(const std::string& prompt)
 {

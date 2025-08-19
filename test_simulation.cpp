@@ -179,7 +179,7 @@ TEST_CASE("Simulation - evolution")
   SUBCASE("Run(1) equals evolve()")
   {
     volterra::Simulation sim1(1.0, 0.5, 0.75, 0.25, 100.0, 80.0);
-    volterra::Simulation sim2 = sim1; // copia iniziale
+    volterra::Simulation sim2 = sim1;
 
     sim1.run(1);
     sim2.evolve();
@@ -247,10 +247,9 @@ TEST_CASE("Simulation - results consistency")
 
   SUBCASE("Conservation of H far from equilibrium")
   {
-    // Parametri con equilibrio (x_eq = D/C ≈ 0.444..., y_eq = A/B = 24)
+    // (x_eq = D/C ≈ 0.444..., y_eq = A/B = 24)
     double A = 1.2, B = 0.05, C = 0.9, D = 0.4;
 
-    // Condizioni iniziali molto lontane dall'equilibrio
     double x0 = 400.0; // >> x_eq
     double y0 = 2.0;   // << y_eq
 
