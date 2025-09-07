@@ -200,7 +200,7 @@ TEST_CASE("Simulation - results consistency")
     volterra::Simulation sim(1.0, 3.2, 4.3, 5.1, 200.0, 150.0);
     sim.run(2);
 
-    const auto& results = sim.get_results();
+    auto const& results = sim.get_results();
     CHECK(results.size() == 3);
 
     auto s0 = results[0];
@@ -220,7 +220,7 @@ TEST_CASE("Simulation - results consistency")
     volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 2.0, 10.0);
     sim.run(2);
 
-    const auto& results = sim.get_results();
+    auto const& results = sim.get_results();
     CHECK(results.size() == 3);
 
     auto s0 = results[0];
@@ -237,7 +237,7 @@ TEST_CASE("Simulation - results consistency")
     volterra::Simulation sim(1.0, 0.2, 0.3, 0.1, 2.0, 10.0);
     sim.run(500);
 
-    const auto& results = sim.get_results();
+    auto const& results = sim.get_results();
     double H0           = results[0].H;
 
     for (auto& state : results) {
@@ -256,10 +256,10 @@ TEST_CASE("Simulation - results consistency")
     volterra::Simulation sim(A, B, C, D, x0, y0);
     sim.run(5000);
 
-    const auto& results = sim.get_results();
+    auto const& results = sim.get_results();
     double H0           = results[0].H;
 
-    for (const auto& s : results) {
+    for (auto const& s : results) {
       CHECK(s.x > 0);
       CHECK(s.y > 0);
       CHECK(s.H == doctest::Approx(H0).epsilon(0.1));
