@@ -1,7 +1,5 @@
-#include <cstdlib>
 #include <exception>
 #include <fstream>
-#include <iostream>
 #include <string>
 
 #include "input_utils.hpp"
@@ -35,7 +33,7 @@ int main()
     }
 
     file << "x    y    H\n";
-    for (const auto& s : sim.get_results()) {
+    for (auto const& s : sim.get_results()) {
       file << s.x << " " << s.y << " " << s.H << "\n";
     }
 
